@@ -12,7 +12,7 @@
             <br /><br />
             Ciljana grupa korisnika nisu samo čitatelji romana, već i studenti/učenici koji bi htjeli kupiti, razmjeniti ili pokloniti rabljene udžbenike i druge tiskane materijale.
           </v-card-text>
-          <v-btn color="#66BB6A" class="mx-5 my-15" elevation="2" x-large @click="handleClick">
+          <v-btn color="#66BB6A" class="mx-5 my-15" elevation="2" x-large href="/registracija">
             Registrirajte se
           </v-btn>
         </v-col>
@@ -86,7 +86,7 @@
       <v-img src="../assets/home-slika4.png"></v-img>
     </v-col>
 
-    <!-- Right side: Text and Button -->
+    <!-- Right side: Text -->
     <v-col cols="12" md="6">
       <v-card-title class="big-title my-10" >Studenti i njihove skripte su dobrodošle!</v-card-title>
       <v-card-text class="big-text my-10">
