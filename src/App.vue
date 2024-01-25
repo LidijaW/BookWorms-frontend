@@ -1,32 +1,53 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="green darken-3"
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="BookWorms Logo"
+          class="shrink mr-4"
+          contain
+          src="./assets/logo1.png"
+          transition="scale-transition"
+          width="80"
+        />
+
+        <v-img
+          alt="BookWorms"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          src="./assets/logo2.png"
+          width="250"
+        />
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+        href="/prijava"
+        text
+        color="white"
+      >
+        <span class="mr-2">Prijavite se</span>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-nav {
-  padding: 30px;
+export default {
+  name: 'App',
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+  data: () => ({
+    //
+  }),
+};
+</script>
