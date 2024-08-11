@@ -1,7 +1,12 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib/framework';
+import { createVuetify } from 'vuetify'
+import 'vuetify/styles'  // Ensure you import Vuetify styles
+import { aliases, fa } from 'vuetify/iconsets/fa'  // Optional: Customize icons
 
-Vue.use(Vuetify);
-
-export default new Vuetify({
-});
+export default createVuetify({
+  // Vuetify options
+  icons: {
+    defaultSet: 'fa', // Optional: Set default icon set
+    aliases,
+    sets: { fa },
+  },
+})
