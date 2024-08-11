@@ -10,3 +10,4 @@ export default createVuetify({
     sets: { fa },
   },
 })
+
