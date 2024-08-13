@@ -3,10 +3,7 @@
     <!-- Directly added Header content for testing -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-green);">
       <div class="container">
-        <a class="navbar-brand" href="#">
-          <img :src="logoSrc" alt="BookWorms" width="30" height="30" class="d-inline-block align-top">
-          BookWorms
-        </a>
+ 
         <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
       </div>
     </nav>
@@ -51,8 +48,8 @@ import FeatureSection from '../components/FeatureSection.vue'
 import UserPost from '../components/UserPost.vue'
 
 // Import slika
-import firstFeatureImage from '@/assets/home-slika2.png';
-import secondFeatureImage from '@/assets/home-slika3.png';
+import firstFeatureImage from '@/assets/home-slika3.png';
+import secondFeatureImage from '@/assets/home-slika4.png';
 import logoSrc from '@/assets/logo1.png';
 
 export default {
