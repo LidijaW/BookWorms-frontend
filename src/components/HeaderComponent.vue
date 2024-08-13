@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-green);">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="../assets/logo1.png" alt="BookWorms" width="30" height="30" class="d-inline-block align-top">
+        <img :src="logoSrc" alt="BookWorms" width="150" height="100" class="d-inline-block align-top">
         BookWorms
       </a>
       <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
@@ -11,7 +11,12 @@
 </template>
 <script>
 export default {
-  name: 'HeaderComponent'
+  name: 'HeaderComponent',
+  data() {
+    return {
+      logoSrc: require('@/assets/logo1.png') // Ovdje koristite require za slike
+    }
+  }
 }
 </script>
 

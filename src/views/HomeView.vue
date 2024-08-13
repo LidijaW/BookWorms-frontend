@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-green);">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="../assets/logo1.png" alt="BookWorms" width="30" height="30" class="d-inline-block align-top">
+          <img :src="logoSrc" alt="BookWorms" width="30" height="30" class="d-inline-block align-top">
           BookWorms
         </a>
         <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
@@ -18,16 +18,18 @@
     <FeatureSection 
       title="Oprez na komunikaciju"
       description="Preporuča se roditeljima da komuniciraju umjesto njihove djece. Razgovarajte o važnosti poštovanja online pravila, sigurnosti i zaštite privatnosti. Edukacija o odgovornom ponašanju na internetu ključna je kako bi se djeca zaštitila od potencijalnih rizika."
-      imageSrc="@/assets/home-slika2.png"
+      :imageSrc="firstFeatureImage"
       imageAlt="Dijete s laptopom"
+
     />
 
     <!-- Second Feature Section -->
     <FeatureSection 
       title="Studenti i njihove skripte su dobrodošle!"
       description="Svaka skripta nosi sa sobom jedinstvenu priču, ideje i perspektive studenata koji su uložili napor kako bi razumjeli gradivo i izrazili uložito razumijevanje. Na našoj platformi studenti mogu bezbrižno razmjenjivati svoje radove za učenje."
-      imageSrc="@/assets/home-slika3.png"
+      :imageSrc="secondFeatureImage"
       imageAlt="Studenti rade zajedno"
+
     />
     
     <!-- User Post Section -->
@@ -48,12 +50,24 @@ import HeroComponent from '../components/HeroComponent.vue'
 import FeatureSection from '../components/FeatureSection.vue'
 import UserPost from '../components/UserPost.vue'
 
+// Import slika
+import firstFeatureImage from '@/assets/home-slika2.png';
+import secondFeatureImage from '@/assets/home-slika3.png';
+import logoSrc from '@/assets/logo1.png';
+
 export default {
   name: 'HomeView',
   components: {
     HeroComponent,
     FeatureSection,
     UserPost
+  },
+  data() {
+    return {
+      firstFeatureImage,
+      secondFeatureImage,
+      logoSrc
+    }
   }
 }
 </script>

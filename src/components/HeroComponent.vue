@@ -11,7 +11,7 @@
             </p>
           </div>
           <div class="col-md-6">
-            <img :src="require('@/assets/home-slika1.png')" alt="Description">
+            <img :src="require('@/assets/home-slika1.png')" alt="Description" width="800" height="470">
           </div>
         </div>
       </div>
