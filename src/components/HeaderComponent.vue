@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-green);">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: green;">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img :src="logoSrc" alt="BookWorms" width="150" height="100" class="d-inline-block align-top">
+        <img :src="logoSrc" alt="BookWorms" width="70" height="40" class="container d-flex align-items-start">
         BookWorms
       </a>
       <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
@@ -14,9 +14,10 @@ export default {
   name: 'HeaderComponent',
   data() {
     return {
-      logoSrc: require('@/assets/logo1.png') // Ovdje koristite require za slike
+      logoSrc: require('@/assets/logo1.png'),
     }
   }
+
 }
 </script>
 
@@ -30,13 +31,13 @@ export default {
 }
 
 .btn-outline-light {
-  color: #fff;
-  border-color: #fff;
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
 .btn-outline-light:hover {
   color: #2E8B57;
   background-color: #fff;
-  border-color: #fff;
+  border-color: #2E8B57;
 }
 </style>

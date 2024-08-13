@@ -1,16 +1,10 @@
 <template>
   <div>
-    <!-- Directly added Header content for testing -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-green);">
-      <div class="container">
- 
-        <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
-      </div>
-    </nav>
+    <div style="height: 50px;"></div>
 
     <!-- Hero Section -->
     <HeroComponent />
-
+   
     <!-- First Feature Section -->
     <FeatureSection 
       title="Oprez na komunikaciju"
@@ -19,7 +13,7 @@
       imageAlt="Dijete s laptopom"
 
     />
-
+  
     <!-- Second Feature Section -->
     <FeatureSection 
       title="Studenti i njihove skripte su dobrodošle!"
