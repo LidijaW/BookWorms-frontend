@@ -1,59 +1,55 @@
 <template>
-  <div class="container mt-5">
-    <!-- First Section -->
-    <div class="row mb-5">
-      <div class="col-md-6">
-        <h1>Novi način pronalaženja literature</h1>
-        <p>
-          Dobrodošli na našu platformu posvećenu dijeljenju kreativnosti i znanja! Ako imate knjige, druge žanrove ili materijale koje želite podijeliti s zajednicom, ovo je pravo mjesto za vas.
-        </p>
-        <p>
-          Ciljana grupa korisnika nisu samo čitatelji romana, već i studenti/učenici koji bi htjeli kupiti, razmijeniti ili pokloniti rabljene udžbenike i druge tiskane materijale.
-        </p>
-        <a href="/registracija" class="btn btn-success btn-lg">Registrirajte se</a>
-      </div>
-      <div class="col-md-6">
-        <img :src="require('@/assets/home-slika1.png')" alt="Čitanje knjige" class="img-fluid">
-      </div>
-    </div>
+  <div>
+    <!-- Header Section -->
+    <HeaderComponent />
 
-    <!-- Second Section -->
-    <div class="row mb-5">
-      <div class="col-md-6">
-        <h2>Oprez na komunikaciju</h2>
-        <p>
-          Preporuča se roditeljima da komuniciraju umjesto njihove djece. Razgovarajte o važnosti poštovanja online pravila, sigurnosti i zaštite privatnosti.
-        </p>
-        <p>
-          Edukacija o odgovornom ponašanju na internetu ključna je kako bi se djeca zaštitila od potencijalnih rizika.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <img :src="require('@/assets/home-slika2.png')" alt="Dijete s laptopom" class="img-fluid">
-      </div>
-    </div>
+    <!-- Hero Section -->
+    <HeroComponent />
 
-    <!-- Third Section -->
-    <div class="row mb-5">
-      <div class="col-md-6">
-        <img :src="require('@/assets/home-slika3.png')" alt="Studenti rade zajedno" class="img-fluid">
-      </div>
-      <div class="col-md-6">
-        <h2>Studenti i njihove skripte su dobrodošle!</h2>
-        <p>
-          Svaka skripta nosi sa sobom jedinstvenu priču, ideje i perspektive studenata koji su uložili napor kako bi razumjeli gradivo i izrazili uložito razumijevanje.
-        </p>
-        <p>
-          Na našoj platformi studenti mogu bezbrižno razmjenjivati svoje radove za učenje.
-        </p>
-      </div>
+    <!-- First Feature Section -->
+    <FeatureSection 
+      title="Oprez na komunikaciju"
+      description="Preporuča se roditeljima da komuniciraju umjesto njihove djece. Razgovarajte o važnosti poštovanja online pravila, sigurnosti i zaštite privatnosti. Edukacija o odgovornom ponašanju na internetu ključna je kako bi se djeca zaštitila od potencijalnih rizika."
+      imageSrc="@/assets/home-slika2.png"
+      imageAlt="Dijete s laptopom"
+    />
+
+    <!-- Second Feature Section -->
+    <FeatureSection 
+      title="Studenti i njihove skripte su dobrodošle!"
+      description="Svaka skripta nosi sa sobom jedinstvenu priču, ideje i perspektive studenata koji su uložili napor kako bi razumjeli gradivo i izrazili uložito razumijevanje. Na našoj platformi studenti mogu bezbrižno razmjenjivati svoje radove za učenje."
+      imageSrc="@/assets/home-slika3.png"
+      imageAlt="Studenti rade zajedno"
+    />
+    
+    <!-- User Post Section -->
+    <div class="container my-5">
+      <h2 class="text-center">Prodajte, donirajte i zamjenite vaše knjige</h2>
+      <p class="text-center">Objavite svoje knjige i dijelite svoje materijale!</p>
+      <UserPost
+        avatarSrc="path-to-avatar1"
+        username="@ivan.horvat"
+        postText='Doniram knjigu Nikite Gill "Your Soul is a River"'
+      />
+      <!-- Add more UserPost components as needed -->
     </div>
   </div>
 </template>
 
 <script>
+import HeaderComponent from '@/components/HeaderComponent.vue'
+import HeroComponent from '@/components/HeroComponent.vue'
+import FeatureSection from '@/components/FeatureSection.vue'
+import UserPost from '@/components/UserPost.vue'
+
 export default {
-  name: 'HomeView'
+  name: 'HomeView',
+  components: {
+    HeaderComponent,
+    HeroComponent,
+    FeatureSection,
+    UserPost
+  }
 }
 </script>
 
@@ -78,5 +74,15 @@ p {
 /* Adding margin between the sections */
 .row {
   margin-bottom: 2rem; /* Adjust this value for more or less spacing */
+}
+
+/* Additional styling for the user post section */
+.text-center {
+  text-align: center;
+}
+
+.my-5 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 </style>

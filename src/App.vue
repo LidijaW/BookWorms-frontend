@@ -1,25 +1,43 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <header class="header">
+    <div class="logo">
+      <img src="path-to-logo" alt="BookWorms">
+      <span>BookWorms</span>
+    </div>
+    <nav>
+      <button class="nav-button">PRIJAVITE SE</button>
+    </nav>
+  </header>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-  }
+  name: 'HeaderComponent'
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+:root {
+  --primary-green: #2E8B57;
+  --light-mint: #E6F3EC;
+  --text-dark: #333333;
+}
+
+body {
+  color: var(--text-dark);
+}
+
+.btn-primary {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.btn-primary:hover {
+  background-color: #236b43;
+  border-color: #236b43;
+}
+
+.bg-light-mint {
+  background-color: var(--light-mint);
 }
 </style>
