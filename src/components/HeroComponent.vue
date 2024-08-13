@@ -11,7 +11,7 @@
             </p>
           </div>
           <div class="col-md-6">
-            <img src="path-to-reading-image" alt="Person reading" class="img-fluid">
+            <img :src="require('@/assets/home-slika1.png')" alt="Description">
           </div>
         </div>
       </div>

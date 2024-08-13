@@ -1,7 +1,15 @@
 <template>
   <div>
-    <!-- Header Section -->
-    <HeaderComponent />
+    <!-- Directly added Header content for testing -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-green);">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="../assets/logo1.png" alt="BookWorms" width="30" height="30" class="d-inline-block align-top">
+          BookWorms
+        </a>
+        <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
+      </div>
+    </nav>
 
     <!-- Hero Section -->
     <HeroComponent />
@@ -31,21 +39,18 @@
         username="@ivan.horvat"
         postText='Doniram knjigu Nikite Gill "Your Soul is a River"'
       />
-      <!-- Add more UserPost components as needed -->
     </div>
   </div>
 </template>
 
 <script>
-import HeaderComponent from '@/components/HeaderComponent.vue'
-import HeroComponent from '@/components/HeroComponent.vue'
-import FeatureSection from '@/components/FeatureSection.vue'
-import UserPost from '@/components/UserPost.vue'
+import HeroComponent from '../components/HeroComponent.vue'
+import FeatureSection from '../components/FeatureSection.vue'
+import UserPost from '../components/UserPost.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HeaderComponent,
     HeroComponent,
     FeatureSection,
     UserPost
@@ -54,6 +59,25 @@ export default {
 </script>
 
 <style scoped>
+:root {
+  --primary-green: #2E8B57;
+}
+
+.navbar {
+  background-color: var(--primary-green);
+}
+
+.btn-outline-light {
+  color: #fff;
+  border-color: #fff;
+}
+
+.btn-outline-light:hover {
+  color: #2E8B57;
+  background-color: #fff;
+  border-color: #fff;
+}
+
 h1, h2 {
   color: #2c3e50;
 }
@@ -71,12 +95,10 @@ p {
   height: auto;
 }
 
-/* Adding margin between the sections */
 .row {
-  margin-bottom: 2rem; /* Adjust this value for more or less spacing */
+  margin-bottom: 2rem;
 }
 
-/* Additional styling for the user post section */
 .text-center {
   text-align: center;
 }

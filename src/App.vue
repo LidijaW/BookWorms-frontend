@@ -1,20 +1,21 @@
 <template>
-  <header class="header">
-    <div class="logo">
-      <img src="path-to-logo" alt="BookWorms">
-      <span>BookWorms</span>
-    </div>
-    <nav>
-      <button class="nav-button">PRIJAVITE SE</button>
-    </nav>
-  </header>
+  <div id="app">
+<HeaderComponent />
+    <router-view/>
+  </div>
 </template>
 
 <script>
+import HeaderComponent from './components/HeaderComponent.vue';
+
 export default {
-  name: 'HeaderComponent'
+  name: 'App',
+components: {
+    HeaderComponent,
+  },
 }
 </script>
+
 
 <style scoped>
 :root {
@@ -40,4 +41,4 @@ body {
 .bg-light-mint {
   background-color: var(--light-mint);
 }
-</style>
+</style> 

@@ -4,12 +4,12 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import OglasiView from '../views/OglasiView.vue'
 import ChatView from '../views/ChatView.vue'
-import AboutView from '../views/AboutView.vue' // Static import
+import AboutView from '../views/AboutView.vue' 
 
 const routes = [
   { path: '/', redirect: { name: 'home' } },
   { path: '/home', name: 'home', component: HomeView},
-  { path: '/about', name: 'about', component: AboutView }, // Static import used here
+  { path: '/about', name: 'about', component: AboutView }, 
   { path: '/prijava', name: 'prijava', component: LoginView },
   { path: '/registracija', name: 'registracija', component: RegisterView },
   { path: '/oglasi', name: 'oglasi', component: OglasiView },
