@@ -1,165 +1,85 @@
 <template>
-	<v-container fill-height fluid class="background">
-		<v-row align="center" justify="center">
-			<v-col align="center" justify="center" cols="12">
-				<v-card class="card-border"  color="#E7FFEE" width="600px" outlined>
-					<v-card-title align="left">PRIJAVA</v-card-title>
-					<v-card-subtitle align="left">
-						Prijavite se kako biste postavljali oglase
-					</v-card-subtitle>
-					<v-card-text class="card-text-border">
-						<v-form v-model="valid">
-							<v-text-field
-								v-model="email"
-								dense
-								label="E-mail"
-								clearble
-								type="text"
-								:rules="[rules.required, rules.email]"
-								outlined></v-text-field>
-							<v-text-field
-								v-model="password"
-								dense
-								label="Zaporka"
-								clearble
-								:append-icon="
-									showIcon ? 'mdi-eye' : 'mdi-eye-off'
-								"
-								:rules="[rules.required, rules.min]"
-								:type="showIcon ? 'text' : 'password'"
-								outlined></v-text-field>
-						</v-form>
-						<v-btn
-							@click="openDialog"
-							class="link-left"
-							text
-							x-small
-							color="blue">
-							Zaboravili ste lozinku?
-						</v-btn>
-					</v-card-text>
-					<v-card-actions class="card-actions">
-						<v-btn
-							@click="login"
-							:disabled="isButtonDisabled"
-							outlined>
-							OK
-						</v-btn>
-					</v-card-actions>
-				</v-card>
-				<v-dialog
-					width="300px"
-					outlined
-					persistent
-					v-model="passwordIssuesDialog">
-					<v-card class="card-border">
-						<v-card-title>E-mail</v-card-title>
-						<v-card-subtitle>
-							Unesite e-mail
-						</v-card-subtitle>
-						<v-card-text>
-							<v-text-field
-								v-model="emailForPassword"
-								dense
-								label="Email"
-								clearble
-								type="text"
-								:rules="[rules.required, rules.email]"
-								outlined></v-text-field>
-						</v-card-text>
-						<v-card-actions class="card-actions">
-							<v-btn
-								class="btn-right-margin"
-								color="red darken-3"
-								outlined
-								text
-								small
-								@click="closeDialog">
-								CLOSE
-							</v-btn>
-							<v-btn
-								outlined
-								text
-								@click="resetPassword(emailForPassword)">
-								SEND
-							</v-btn>
-						</v-card-actions>
-					</v-card>
-				</v-dialog>
-			</v-col>
-		</v-row>
-	</v-container>
-</template>
-<script>
-import {
-	auth,
-	sendPasswordResetEmail,
-	signInWithEmailAndPassword,
-} from "../../firebase.js";
-export default {
-	name: "LoginView",
-	components: {},
-	watch: {
-		valid: function (newVal) {
-			if (newVal != true) {
-				this.isButtonDisabled = true;
-			} else {
-				this.isButtonDisabled = false;
-			}
-		},
-	},
-	data() {
-		return {
-			emailForPassword: null,
-			passwordIssuesDialog: false,
-			isButtonDisabled: false,
-			valid: true,
-			email: null,
-			password: null,
-			showIcon: false,
-			rules: {
-				required: (value) => !!value || "Obavezno",
-				min: (v) => v?.length >= 6 || "Minimalno 6 znakova",
-				email: (v) =>
-					!v ||
-					/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-					"E-mail mora biti važeći",
-			},
-		};
-	},
-	methods: {
-		login() {
-			let email = this.email;
-			let password = this.password;
-			signInWithEmailAndPassword(auth, email, password)
-				.then(() => {
-					this.$router.push("/oglasi");
-				})
-				.catch((error) => {
-					alert(error.message);
-				});
-		},
-		resetPassword(email) {
-			sendPasswordResetEmail(auth, email)
-				.then(() => {
-					console.log("Email sent");
-				});
-			this.closeDialog();
-		},
-		postActionMoveToView() {
-			this.$router.push({ path: "/oglasi" });
-		},
-		closeDialog() {
-			this.passwordIssuesDialog = false;
-		},
-		openDialog() {
-			this.passwordIssuesDialog = true;
-		},
-	},
-	created() {},
-	mounted() {},
-	destroyed() {},
-};
-</script>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card border-success" style="max-width: 600px; width: 100%;">
+            <div class="card-header bg-success text-white">
+                <h5 class="card-title mb-0">PRIJAVA</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-3 text-muted">Prijavite se kako biste postavljali oglase</h6>
+                <form @submit.prevent="login">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="email" 
+                            v-model="email"
+                            :class="{ 'is-invalid': email && !validEmail(email) }"
+                            required
+                        >
+                        <div class="invalid-feedback">
+                            E-mail mora biti važeći
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Zaporka</label>
+                        <div class="input-group">
+                            <input 
+                                :type="showIcon ? 'text' : 'password'" 
+                                class="form-control" 
+                                id="password" 
+                                v-model="password"
+                                :class="{ 'is-invalid': password && password.length < 6 }"
+                                required
+                            >
+                            <button class="btn btn-outline-secondary" type="button" @click="toggleShowIcon">
+                                <i :class="showIcon ? 'bi-eye' : 'bi-eye-slash'"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">
+                            Minimalno 6 znakova
+                        </div>
+                    </div>
+                    <div class="mb-3 text-end">
+                        <button type="button" class="btn btn-link p-0" @click="openDialog">Zaboravili ste lozinku?</button>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-outline-success" :disabled="isButtonDisabled">OK</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-<style></style>
+        <!-- Modal for Password Reset -->
+        <div class="modal fade" id="passwordResetModal" tabindex="-1" aria-labelledby="passwordResetModalLabel" aria-hidden="true" ref="passwordResetModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordResetModalLabel">E-mail</h5>
+                        <button type="button" class="btn-close" @click="closeDialog"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="emailForPassword" class="form-label">Email</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="emailForPassword" 
+                                v-model="emailForPassword"
+                                :class="{ 'is-invalid': emailForPassword && !validEmail(emailForPassword) }"
+                                required
+                            >
+                            <div class="invalid-feedback">
+                                E-mail mora biti važeći
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @click="closeDialog">CLOSE</button>
+                        <button type="button" class="btn btn-primary" @click="resetPassword(emailForPassword)">SEND</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
