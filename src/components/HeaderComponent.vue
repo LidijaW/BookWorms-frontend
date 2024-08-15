@@ -1,14 +1,17 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: green;">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <router-link to="/home" class="navbar-brand no-underline">
         <img :src="logoSrc" alt="BookWorms" width="70" height="40" class="container d-flex align-items-start">
         BookWorms
-      </a>
-      <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
+      </router-link>
+      <router-link to="/prijava">
+        <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
+      </router-link>
     </div>
   </nav>
 </template>
+
 <script>
 export default {
   name: 'HeaderComponent',
@@ -17,7 +20,6 @@ export default {
       logoSrc: require('@/assets/logo1.png'),
     }
   }
-
 }
 </script>
 
@@ -39,5 +41,14 @@ export default {
   color: #2E8B57;
   background-color: #fff;
   border-color: #2E8B57;
+}
+
+.no-underline {
+  text-decoration: none;
+  color: inherit;
+}
+
+.no-underline:hover {
+  text-decoration: none;
 }
 </style>

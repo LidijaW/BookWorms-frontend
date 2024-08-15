@@ -7,6 +7,7 @@
           <p class="lead">Dobrodošli na našu platformu posvećenu dijeljenju kreativnosti i znanja!</p>
           <p>Ako imate knjige, druge žanrove ili materijale koje želite podijeliti s zajednicom, ovo je pravo mjesto za vas.</p>
           <p>
+            <router-link to="/registracija">
             <button 
               class="btn btn-primary my-2" 
               :class="{ 'btn-clicked': isClicked }" 
@@ -14,6 +15,7 @@
             >
               REGISTRIRAJTE SE
             </button>
+          </router-link>
           </p>
         </div>
         <div class="col-md-6">
