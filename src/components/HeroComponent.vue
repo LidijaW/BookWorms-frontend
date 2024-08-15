@@ -1,5 +1,5 @@
 <template>
-  <section class="jumbotron text-left bg-light-mint" style="background-color: ;">
+  <section class="jumbotron text-left bg-light-mint">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -7,7 +7,13 @@
           <p class="lead">Dobrodošli na našu platformu posvećenu dijeljenju kreativnosti i znanja!</p>
           <p>Ako imate knjige, druge žanrove ili materijale koje želite podijeliti s zajednicom, ovo je pravo mjesto za vas.</p>
           <p>
-            <button class="btn btn-primary my-2">REGISTRIRAJTE SE</button>
+            <button 
+              class="btn btn-primary my-2" 
+              :class="{ 'btn-clicked': isClicked }" 
+              @click="toggleClick"
+            >
+              REGISTRIRAJTE SE
+            </button>
           </p>
         </div>
         <div class="col-md-6">
@@ -20,8 +26,18 @@
 
 <script>
 export default {
-  name: 'HeroComponent'
-}
+  name: 'HeroComponent',
+  data() {
+    return {
+      isClicked: false,
+    };
+  },
+  methods: {
+    toggleClick() {
+      this.isClicked = !this.isClicked;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -36,6 +52,10 @@ export default {
   color: #2E8B57; 
   border-color: #2E8B57; 
 }
+
+.btn-primary.btn-clicked {
+  background-color: #ffffff; 
+  color: #2E8B57;
+  border-color: #2E8B57;
+}
 </style>
-
-

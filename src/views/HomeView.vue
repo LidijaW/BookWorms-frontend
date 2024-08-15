@@ -4,33 +4,40 @@
 
     <!-- Hero Section -->
     <HeroComponent />
-   
-    <!-- First Feature Section -->
-    <FeatureSection 
-      title="Oprez na komunikaciju"
-      description="Preporuča se roditeljima da komuniciraju umjesto njihove djece. Razgovarajte o važnosti poštovanja online pravila, sigurnosti i zaštite privatnosti. Edukacija o odgovornom ponašanju na internetu ključna je kako bi se djeca zaštitila od potencijalnih rizika."
-      :imageSrc="firstFeatureImage"
-      imageAlt="Dijete s laptopom"
-    />
-  
-    <!-- Second Feature Section -->
-    <FeatureSection 
-      title="Studenti i njihove skripte su dobrodošle!"
-      description="Svaka skripta nosi sa sobom jedinstvenu priču, ideje i perspektive studenata koji su uložili napor kako bi razumjeli gradivo i izrazili uložito razumijevanje. Na našoj platformi studenti mogu bezbrižno razmjenjivati svoje radove za učenje."
-      :imageSrc="secondFeatureImage"
-      imageAlt="Studenti rade zajedno"
-    />
+
+    <!-- Feature Section Container with Arrows Closer to the Center -->
+    <div class="feature-section-wrapper">
+      <button @click="prevFeature" class="arrow-btn arrow-left">←</button>
+      
+      <FeatureSection 
+        v-if="currentIndex === 0"
+        title="Oprez na komunikaciju"
+        description="Preporuča se roditeljima da komuniciraju umjesto njihove djece. Razgovarajte o važnosti poštovanja online pravila, sigurnosti i zaštite privatnosti. Edukacija o odgovornom ponašanju na internetu ključna je kako bi se djeca zaštitila od potencijalnih rizika."
+        :imageSrc="firstFeatureImage"
+        imageAlt="Dijete s laptopom"
+      />
     
-    <!-- User Post Section -->
+      <FeatureSection 
+        v-if="currentIndex === 1"
+        title="Studenti i njihove skripte su dobrodošle!"
+        description="Svaka skripta nosi sa sobom jedinstvenu priču, ideje i perspektive studenata koji su uložili napor kako bi razumjeli gradivo i izrazili uložito razumijevanje. Na našoj platformi studenti mogu bezbrižno razmjenjivati svoje radove za učenje."
+        :imageSrc="secondFeatureImage"
+        imageAlt="Studenti rade zajedno"
+      />
+
+      <button @click="nextFeature" class="arrow-btn arrow-right">→</button>
+    </div>
+
+    <!-- User Post Section (below slideshow) -->
     <div class="container my-5">
       <h2 class="text-center">Prodajte, donirajte i zamjenite vaše knjige</h2>
       <p class="text-center">Objavite svoje knjige i dijelite svoje materijale!</p>
       
       <UserPost
-        avatarSrc="path-to-avatar1"
+        :avatarSrc="profileImage"
         username="@ivan.horvat"
         postText='Doniram knjigu Nikite Gill "Your Soul is a River"'
-        :imageSrc="thirdFeatureImage"  
+        :imageSrc="thirdFeatureImage"
         imageAlt="Book Exchange"
       />
     </div>
@@ -43,9 +50,9 @@ import FeatureSection from '../components/FeatureSection.vue'
 import UserPost from '../components/UserPost.vue'
 
 // Import images
+import profileImage from '@/assets/slika-user.png';
 import firstFeatureImage from '@/assets/home-slika3.png';
 import secondFeatureImage from '@/assets/home-slika4.png';
-import logoSrc from '@/assets/logo1.png';
 import thirdFeatureImage from '@/assets/slika-user-blog.png';
 
 export default {
@@ -57,10 +64,20 @@ export default {
   },
   data() {
     return {
+      profileImage,  // Added profileImage here to resolve the issue
       firstFeatureImage,
       secondFeatureImage,
-      logoSrc,
-      thirdFeatureImage  
+      thirdFeatureImage,
+      currentIndex: 0,  
+      totalFeatures: 2 
+    }
+  },
+  methods: {
+    prevFeature() {
+      this.currentIndex = (this.currentIndex + this.totalFeatures - 1) % this.totalFeatures;
+    },
+    nextFeature() {
+      this.currentIndex = (this.currentIndex + 1) % this.totalFeatures;
     }
   }
 }
@@ -119,5 +136,51 @@ p {
 .my-4 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+
+.feature-section-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+  background-color: #54a979;
+}
+
+
+.arrow-btn {
+  background-color: var(--primary-green);
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+
+.arrow-btn:hover {
+  transform: translateY(-50%) scale(1.1); 
+  background-color: #1f5e3f;
+}
+
+.arrow-left {
+  left: 180px; 
+}
+
+.arrow-right {
+  right: 180px;
 }
 </style>
