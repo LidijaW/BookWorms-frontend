@@ -20,7 +20,7 @@
 
     <!-- Slika -->
     <div class="about-image" style="flex: 1; text-align: center;">
-      <img src="@/assets/home-slika1.png" alt="BookWorms Image" style="max-width: 100%; height: auto; border-radius: 10px;">
+      <img src="/frontend/bookworms/src/assets/about-slika.png" alt="BookWorms Image" style="max-width: 100%; height: auto; border-radius: 10px;">
     </div>
   </div>
 </template>
