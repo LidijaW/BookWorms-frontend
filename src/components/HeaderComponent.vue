@@ -7,7 +7,7 @@
       </router-link>
       <div class="ml-auto d-flex">
         <router-link to="/about">
-          <button class="btn btn-outline-light">ABOUT</button>
+          <button class="btn btn-outline-light">O NAMA</button>
         </router-link>
         <router-link to="/prijava">
           <button class="btn btn-outline-light" style="margin-left: 20px;">PRIJAVITE SE</button>
