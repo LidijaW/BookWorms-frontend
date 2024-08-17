@@ -49,7 +49,7 @@ import HeroComponent from '../components/HeroComponent.vue'
 import FeatureSection from '../components/FeatureSection.vue'
 import UserPost from '../components/UserPost.vue'
 
-// Import images
+
 import profileImage from '@/assets/slika-user.png';
 import firstFeatureImage from '@/assets/home-slika3.png';
 import secondFeatureImage from '@/assets/home-slika4.png';
@@ -64,7 +64,7 @@ export default {
   },
   data() {
     return {
-      profileImage,  // Added profileImage here to resolve the issue
+      profileImage, 
       firstFeatureImage,
       secondFeatureImage,
       thirdFeatureImage,

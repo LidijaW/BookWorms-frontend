@@ -5,9 +5,14 @@
         <img :src="logoSrc" alt="BookWorms" width="70" height="40" class="container d-flex align-items-start">
         BookWorms
       </router-link>
-      <router-link to="/prijava">
-        <button class="btn btn-outline-light ml-auto">PRIJAVITE SE</button>
-      </router-link>
+      <div class="ml-auto d-flex">
+        <router-link to="/about">
+          <button class="btn btn-outline-light">ABOUT</button>
+        </router-link>
+        <router-link to="/prijava">
+          <button class="btn btn-outline-light" style="margin-left: 20px;">PRIJAVITE SE</button>
+        </router-link>
+      </div>
     </div>
   </nav>
 </template>
