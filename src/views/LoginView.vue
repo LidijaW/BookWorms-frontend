@@ -50,7 +50,6 @@
             </div>
         </div>
 
-        <!-- Modal for Password Reset -->
         <div class="modal fade" id="passwordResetModal" tabindex="-1" aria-labelledby="passwordResetModalLabel" aria-hidden="true" ref="passwordResetModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -83,3 +82,99 @@
         </div>
     </div>
 </template>
+
+<script>
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal } from 'bootstrap';
+
+export default {
+    name: "LoginView",
+    data() {
+        return {
+            isButtonDisabled: false,
+            email: null,
+            password: null,
+            showIcon: false,
+            emailForPassword: null,
+            rules: {
+                required: (value) => !!value || "Obavezno",
+                min: (v) => v?.length >= 6 || "Minimalno 6 znakova",
+                email: (v) =>
+                    !v ||
+                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                    "E-mail mora biti važeći",
+            },
+        };
+    },
+    methods: {
+        clearFormData() {
+            this.email = null;
+            this.password = null;
+        },
+        async login() {
+            if (!this.email || !this.password) {
+                console.error("Please fill in all fields");
+                return;
+            }
+
+            if (!this.validEmail(this.email)) {
+                console.error("Invalid email format");
+                return;
+            }
+
+            const loginData = {
+                email: this.email,
+                password: this.password,
+            };
+
+            try {
+                await axios.post('http://localhost:3000/bookworms/auth/login', loginData);
+                alert("Login successful! Redirecting to the ads page...");
+                this.$router.push({ path: "/oglasi" });
+            } catch (error) {
+                console.error("Login error:", error.response?.data?.error || error.message);
+                alert("Login failed: " + (error.response?.data?.error || error.message));
+            }
+        },
+        toggleShowIcon() {
+            this.showIcon = !this.showIcon;
+        },
+        validEmail(email) {
+            return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
+        },
+        openDialog() {
+            const modal = new Modal(this.$refs.passwordResetModal);
+            modal.show();
+        },
+        closeDialog() {
+            const modal = new Modal(this.$refs.passwordResetModal);
+            modal.hide();
+        },
+        async resetPassword(email) {
+            console.log("Reset password for:", email);
+            this.closeDialog();
+        }
+    },
+};
+</script>
+
+<style>
+.card-border {
+    padding: 2%;
+}
+
+.card-text-border {
+    padding: 2.5%;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btn-right-margin {
+    margin-right: 2%;
+}
+</style>
