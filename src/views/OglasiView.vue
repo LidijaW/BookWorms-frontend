@@ -7,55 +7,67 @@
         type="text"
         class="form-control search-input"
         v-model="searchQuery"
-        @input="fetchAds"
-        placeholder="Pretraži oglase ili knjige"
+        @input="debouncedFetchBooks"
+        placeholder="Pretraži knjige"
       >
-      <button @click="fetchAds" class="btn btn-primary ms-2">Pretraži</button>
     </div>
 
-    <!-- Add Ad Button -->
+    <!-- Add Book Button -->
     <div class="mb-4 text-center">
-      <button @click="goToCreateAd" class="btn btn-success btn-lg">Dodaj Oglas</button>
+      <button @click="goToCreateBook" class="btn btn-success btn-lg">Dodaj Knjigu</button>
     </div>
 
-    <!-- Ads Display -->
-<div class="row">
-  <div class="col-md-4" v-for="ad in ads" :key="ad.id">
-    <div class="card mb-4">
-      <img :src="userImage" alt="User" class="user-image">
-      
-      <div class="card-body d-flex flex-column justify-content-between">
-        <div class="title-container">
-          <h5 class="card-title">{{ ad.title }}</h5>
-        </div>
-        <p class="card-text">{{ ad.description }}</p>
-        <div class="text-center mt-auto">
-          <button @click="openAdModal(ad)" class="btn btn-primary">Pogledaj</button>
+    <!-- Books Display -->
+    <div class="row">
+      <div class="col-md-4 mb-4" v-for="book in filteredBooks" :key="book._id">
+        <div class="card mb-4">
+          <img :src="userImage" alt="User" class="user-image">
+          <div class="card-body d-flex flex-column">
+            <div class="title-container">
+              <h5 class="card-title">{{ book.title }}</h5>
+            </div>
+            <p class="card-text text-center">{{ book.author }}</p>
+            <p class="card-description text-center">{{ book.description || 'Nema opisa' }}</p>
+            <div class="mt-auto text-center">
+              <button @click="openBookModal(book)" class="btn btn-primary">Pogledaj</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-    <!-- No Ads Found Message -->
-    <div v-if="ads.length === 0" class="text-center mt-4">
-      <p>Nema oglasa koji odgovaraju vašoj pretrazi.</p>
+    <!-- No Books Found Message -->
+    <div v-if="filteredBooks.length === 0" class="text-center mt-4">
+      <p>Nema knjiga koje odgovaraju vašoj pretrazi.</p>
     </div>
 
-    <!-- Ad Detail Modal -->
-    <div v-if="selectedAd" class="modal fade show" style="display: block;">
+    <!-- Book Detail Modal -->
+    <div v-if="selectedBook" class="modal fade show" style="display: block;">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ selectedAd.title }}</h5>
-            <button type="button" class="btn-close" @click="closeAdModal"></button>
+            <h5 class="modal-title">{{ selectedBook.title }}</h5>
+            <button type="button" class="btn-close" @click="closeBookModal"></button>
           </div>
           <div class="modal-body">
-            <p>{{ selectedAd.description }}</p>
+            <p>Autor: {{ selectedBook.author }}</p>
+            <p>Žanr: {{ selectedBook.genre }}</p>
+            <p>Broj stranica: {{ selectedBook.pages }}</p>
+            <p>Godina izdanja: {{ selectedBook.publicationYear }}</p>
+            <p>Izdanje: {{ selectedBook.edition }}</p>
+            <p>Tip literature: {{ selectedBook.literatureType }}</p>
+            <p>Nivo obrazovanja: {{ selectedBook.educationLevel }}</p>
+            <p>Godina: {{ selectedBook.year }}</p>
+            <p>Opis: {{ selectedBook.description || 'Nema opisa' }}</p>
           </div>
-          <div class="modal-footer">
-
-            <button type="button" class="btn btn-primary">Chat</button>
+          <div class="modal-footer d-flex justify-content-center">
+            <button 
+              type="button" 
+              class="btn btn-primary"
+              @click="goToChatPage"
+            >
+              Javite se za oglas putem chat-a
+            </button>
           </div>
         </div>
       </div>
@@ -65,43 +77,61 @@
 
 <script>
 import axios from 'axios';
+import debounce from 'lodash/debounce';
 
 export default {
   name: 'OglasiView',
   data() {
     return {
       searchQuery: '',
-      ads: [],
-      selectedAd: null,
+      books: [],
+      selectedBook: null,
       searchIcon: require('@/assets/search.png'),
       userImage: require('@/assets/slika-user.png')
     };
   },
+  computed: {
+    filteredBooks() {
+      if (this.searchQuery.trim() === '') {
+        return this.books; // Prikaži sve knjige ako je pretraga prazna
+      }
+      const query = this.searchQuery.toLowerCase();
+      return this.books.filter(book => {
+        return (
+          book.title.toLowerCase().includes(query) ||
+          book.author.toLowerCase().includes(query) ||
+          book.genre.toLowerCase().includes(query)
+        );
+      });
+    },
+    debouncedFetchBooks() {
+      return debounce(this.fetchBooks, 300); // Debounce delay of 300ms
+    }
+  },
   methods: {
-    async fetchAds() {
+    async fetchBooks() {
       try {
-        const response = await axios.get('http://localhost:3000/bookworms/ads', {
-          params: {
-            query: this.searchQuery
-          }
-        });
-        this.ads = response.data;
+        const response = await axios.get('http://localhost:3000/bookworms/books');
+        this.books = response.data;
       } catch (error) {
-        console.error('Error fetching ads:', error);
+        console.error('Error fetching books:', error);
       }
     },
-    goToCreateAd() {
-      this.$router.push('/oglas-create');
+    goToCreateBook() {
+      this.$router.push({ name: 'oglas-create' });
     },
-    openAdModal(ad) {
-      this.selectedAd = ad;
+    openBookModal(book) {
+      this.selectedBook = book;
     },
-    closeAdModal() {
-      this.selectedAd = null;
+    closeBookModal() {
+      this.selectedBook = null;
+    },
+    goToChatPage() {
+      this.$router.push({ path: '/chat' });
     }
   },
   mounted() {
-    this.fetchAds();
+    this.fetchBooks();
   }
 };
 </script>
@@ -109,6 +139,9 @@ export default {
 <style scoped>
 .card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures card takes full height of column */
 }
 
 .user-image {
@@ -125,8 +158,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  height: 150px;
+  height: 100%; /* Ensures the body takes full height of card */
 }
 
 .title-container {
@@ -137,6 +169,19 @@ export default {
 
 .card-title {
   margin: 0;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 0.9rem;
+  color: #6c757d;
+  text-align: center;
 }
 
 .btn-primary {
@@ -195,5 +240,14 @@ export default {
 .modal-dialog {
   max-width: 500px;
   width: 100%;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.col-md-4 {
+  margin-bottom: 20px; 
 }
 </style>

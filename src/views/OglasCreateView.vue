@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h2 class="text-center mt-4 mb-4">Kreiraj Oglas</h2>
+    <h2 class="text-center mt-4 mb-4">Dodaj Knjigu</h2>
     <div class="form-container">
-      <form @submit.prevent="createAd">
+      <form @submit.prevent="createBook">
         <div class="mb-3">
           <label for="title" class="form-label">Naslov</label>
           <input type="text" id="title" v-model="book.title" class="form-control" required>
@@ -28,11 +28,11 @@
           <input type="text" id="edition" v-model="book.edition" class="form-control" required>
         </div>
         <div class="mb-3">
-          <label for="literatureType" class="form-label">Vrsta književnosti</label>
+          <label for="literatureType" class="form-label">Tip književnosti</label>
           <input type="text" id="literatureType" v-model="book.literatureType" class="form-control" required>
         </div>
         <div class="mb-3">
-          <label for="educationLevel" class="form-label">Obrazovni nivo</label>
+          <label for="educationLevel" class="form-label">Nivo obrazovanja (Nije obavezan)*</label>
           <input type="text" id="educationLevel" v-model="book.educationLevel" class="form-control">
         </div>
         <div class="mb-3">
@@ -40,12 +40,12 @@
           <input type="number" id="year" v-model="book.year" class="form-control">
         </div>
         <div class="mb-3">
-          <label for="description" class="form-label">Opis</label>
-          <textarea id="description" v-model="description" class="form-control" rows="3" required></textarea>
+          <label for="description" class="form-label">Opis (Nije obavezan)*</label>
+          <textarea id="description" v-model="book.description" class="form-control" rows="3"></textarea>
         </div>
         <div class="d-flex justify-content-end mb-4">
           <button type="button" class="btn btn-secondary me-2" @click="cancel">Odustani</button>
-          <button type="submit" class="btn btn-success">Kreiraj Oglas</button>
+          <button type="submit" class="btn btn-success">Kreiraj Knjigu</button>
         </div>
       </form>
     </div>
@@ -56,38 +56,30 @@
 import axios from 'axios';
 
 export default {
-  name: 'OglasCreateView',
+  name: 'BookCreateView',
   data() {
     return {
       book: {
         title: '',
         author: '',
         genre: '',
-        pages: '',
-        publicationYear: '',
+        pages: null,
+        publicationYear: null,
         edition: '',
         literatureType: '',
         educationLevel: '',
-        year: ''
-      },
-      adCode: '',
-      description: ''
+        year: null,
+        description: ''
+      }
     };
   },
   methods: {
-    async createAd() {
+    async createBook() {
       try {
-        const newAd = {
-          adCode: this.adCode,
-          description: this.description,
-          book: this.book,
-          createdAt: new Date()
-        };
-
-        await axios.post('http://localhost:3000/bookworms/ads', newAd);
+        await axios.post('http://localhost:3000/bookworms/books', this.book);
         this.$router.push('/oglasi');
       } catch (error) {
-        console.error('Error creating ad:', error);
+        console.error('Error creating book:', error);
       }
     },
     cancel() {

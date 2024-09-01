@@ -1,5 +1,6 @@
 <template>
     <div class="container d-flex justify-content-center align-items-center vh-100">
+        <!-- Login Form Card -->
         <div class="card border-success" style="max-width: 600px; width: 100%;">
             <div class="card-header bg-success text-white">
                 <h5 class="card-title mb-0">PRIJAVA</h5>
@@ -7,6 +8,7 @@
             <div class="card-body">
                 <h6 class="card-subtitle mb-3 text-muted">Prijavite se kako biste postavljali oglase</h6>
                 <form @submit.prevent="login">
+                    <!-- Email Input -->
                     <div class="mb-3">
                         <label for="email" class="form-label">E-mail</label>
                         <input 
@@ -21,6 +23,7 @@
                             E-mail mora biti važeći
                         </div>
                     </div>
+                    <!-- Password Input -->
                     <div class="mb-3">
                         <label for="password" class="form-label">Zaporka</label>
                         <div class="input-group">
@@ -40,9 +43,11 @@
                             Minimalno 6 znakova
                         </div>
                     </div>
+                    <!-- Forgot Password Link -->
                     <div class="mb-3 text-end">
                         <button type="button" class="btn btn-link p-0" @click="openDialog">Zaboravili ste lozinku?</button>
                     </div>
+                    <!-- Submit Button -->
                     <div class="d-grid">
                         <button type="submit" class="btn btn-outline-success" :disabled="isButtonDisabled">OK</button>
                     </div>
@@ -50,12 +55,13 @@
             </div>
         </div>
 
-        <div class="modal fade" id="passwordResetModal" tabindex="-1" aria-labelledby="passwordResetModalLabel" aria-hidden="true" ref="passwordResetModal">
+        <!-- Password Reset Modal -->
+        <div v-if="showPasswordResetModal" class="modal fade show d-block" tabindex="-1" aria-labelledby="passwordResetModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="passwordResetModalLabel">E-mail</h5>
-                        <button type="button" class="btn-close" @click="closeDialog"></button>
+                        <button type="button" class="btn-close" @click="closePasswordResetModal"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -74,8 +80,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="closeDialog">CLOSE</button>
-                        <button type="button" class="btn btn-primary" @click="resetPassword(emailForPassword)">SEND</button>
+                        <button type="button" class="btn btn-primary green-btn" @click="resetPassword(emailForPassword)">POŠALJI</button>
                     </div>
                 </div>
             </div>
@@ -85,8 +90,6 @@
 
 <script>
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Modal } from 'bootstrap';
 
 export default {
     name: "LoginView",
@@ -97,14 +100,7 @@ export default {
             password: null,
             showIcon: false,
             emailForPassword: null,
-            rules: {
-                required: (value) => !!value || "Obavezno",
-                min: (v) => v?.length >= 6 || "Minimalno 6 znakova",
-                email: (v) =>
-                    !v ||
-                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-                    "E-mail mora biti važeći",
-            },
+            showPasswordResetModal: false, 
         };
     },
     methods: {
@@ -144,16 +140,18 @@ export default {
             return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
         },
         openDialog() {
-            const modal = new Modal(this.$refs.passwordResetModal);
-            modal.show();
+            this.showPasswordResetModal = true;
         },
-        closeDialog() {
-            const modal = new Modal(this.$refs.passwordResetModal);
-            modal.hide();
+        closePasswordResetModal() {
+            this.showPasswordResetModal = false;
         },
         async resetPassword(email) {
+            if (!this.validEmail(email)) {
+                console.error("Invalid email format for password reset");
+                return;
+            }
             console.log("Reset password for:", email);
-            this.closeDialog();
+            this.closePasswordResetModal();
         }
     },
 };
@@ -176,5 +174,20 @@ export default {
 
 .btn-right-margin {
     margin-right: 2%;
+}
+
+.modal.fade.show.d-block {
+    display: block;
+}
+
+.green-btn {
+    background-color: #2E8B57 !important; 
+    border-color: #2E8B57 !important; 
+    color: #fff !important; 
+}
+
+.green-btn:hover {
+    background-color: #236b43 !important; 
+    border-color: #236b43 !important; 
 }
 </style>

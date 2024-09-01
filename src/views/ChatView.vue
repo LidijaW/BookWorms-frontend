@@ -1,107 +1,150 @@
 <template>
-  <v-app id="inspire">
-    <v-system-bar app>
-      <v-spacer></v-spacer>
-
-      <v-icon>mdi-square</v-icon>
-
-      <v-icon>mdi-circle</v-icon>
-
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar>
-
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-    >
-      <v-sheet
-        color="grey lighten-4"
-        class="pa-4"
-      >
-        <v-avatar
-          class="mb-4"
-          color="grey darken-1"
-          size="64"
-        ></v-avatar>
-
-        <div>john@vuetifyjs.com</div>
-      </v-sheet>
-
-      <v-divider></v-divider>
-
-      <v-list>
-        <v-list-item
-          v-for="[icon, text] in links"
-          :key="icon"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-main>
-      <v-container
-        class="py-8 px-6"
-        fluid
-      >
-        <v-row>
-          <v-col
-            v-for="card in cards"
-            :key="card"
-            cols="12"
-          >
-            <v-card>
-              <v-subheader>{{ card }}</v-subheader>
-
-              <v-list two-line>
-                <v-list-item
-                  v-for="n in 6"
-                  :key="n"
-                >
-                  <v-list-item-avatar color="grey darken-1">
-                  </v-list-item-avatar>
-
-                  <v-list-item-content>
-                    <v-list-item-title>Message {{ n }}</v-list-item-title>
-
-                    <v-list-item-subtitle>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil repellendus distinctio similique
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-divider
-                  v-if="n !== 6"
-                  :key="`divider-${n}`"
-                  inset
-                ></v-divider>
-              </v-list>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>Bookworms Chat</h2>
+    </div>
+    <div class="chat-messages">
+      <div v-for="msg in messages" :key="msg.id" :class="['message', msg.sender]">
+        <div class="message-content">
+          <strong>{{ msg.sender }}:</strong> {{ msg.text }}
+        </div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <textarea v-model="newMessage" placeholder="Upišite svoju poruku..." rows="3"></textarea>
+      <div class="chat-buttons">
+        <button @click="goBack">Natrag</button>
+        <button @click="sendMessage">Pošalji</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    cards: ['Today', 'Yesterday'],
-    drawer: null,
-    links: [
-      ['mdi-inbox-arrow-down', 'Inbox'],
-      ['mdi-send', 'Send'],
-      ['mdi-delete', 'Trash'],
-      ['mdi-alert-octagon', 'Spam'],
-    ],
-  }),
-}
+  name: 'ChatView',
+  data() {
+    return {
+      messages: [
+        { id: 1, sender: 'Korisnik', text: 'Pozdrav, trebam pomoć oko narudžbe.' },
+        { id: 2, sender: 'Korisnik - Prodavač', text: 'Naravno! Kako vam mogu pomoći?' },
+      ],
+      newMessage: '',
+    };
+  },
+  methods: {
+    sendMessage() {
+      if (this.newMessage.trim()) {
+        this.messages.push({
+          id: this.messages.length + 1,
+          sender: 'Korisnik',
+          text: this.newMessage.trim(),
+        });
+        this.newMessage = '';
+      }
+    },
+    goBack() {
+      this.$router.push({ path: '/oglasi', name: 'oglasi' });
+    },
+  },
+};
 </script>
+
+<style>
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  width: 90vw;
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chat-header {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 80%;
+  clear: both;
+  word-wrap: break-word;
+}
+
+.message.Korisnik {
+  background-color: #28a745;
+  color: white;
+  margin-left: auto;
+}
+.message.korisnik-prodavac {
+  background-color: #e9ecef;
+  color: #212529;
+}
+
+.message-content {
+  word-wrap: break-word;
+}
+
+.chat-input {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #ffffff;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  resize: none;
+}
+
+.chat-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chat-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.chat-buttons button:first-child {
+  background-color: #6c757d;
+}
+
+.chat-buttons button:first-child:hover {
+  background-color: #5a6268;
+}
+
+.chat-buttons button:last-child {
+  background-color: #28a745;
+}
+
+.chat-buttons button:last-child:hover {
+  background-color: #218838;
+}
+</style>

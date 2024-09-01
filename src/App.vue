@@ -1,21 +1,23 @@
 <template>
   <div id="app">
-<HeaderComponent />
+    <HeaderComponent />
     <router-view/>
+    <FooterSection />
   </div>
 </template>
 
 <script>
 import HeaderComponent from './components/HeaderComponent.vue';
+import FooterSection from './components/FooterSection.vue';
 
 export default {
   name: 'App',
-components: {
+  components: {
     HeaderComponent,
-  },
+    FooterSection
+  }
 }
 </script>
-
 
 <style scoped>
 :root {
@@ -41,4 +43,4 @@ body {
 .bg-light-mint {
   background-color: var(--light-mint);
 }
-</style> 
+</style>
