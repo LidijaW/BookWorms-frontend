@@ -7,6 +7,8 @@ import ChatView from "../views/ChatView.vue";
 import AboutView from "../views/AboutView.vue";
 import OglasCreateView from "../views/OglasCreateView.vue";
 
+
+
 const routes = [
   { path: "/", redirect: { name: "home" } },
   { path: "/home", name: "home", component: HomeView },
@@ -16,6 +18,7 @@ const routes = [
   { path: "/oglasi", name: "oglasi", component: OglasiView },
   { path: "/oglas-create", name: "oglas-create", component: OglasCreateView },
   { path: "/chat", name: "chat", component: ChatView },
+
 ];
 
 const router = createRouter({

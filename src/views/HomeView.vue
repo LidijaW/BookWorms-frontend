@@ -41,6 +41,19 @@
         imageAlt="Book Exchange"
       />
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container text-center">
+        <p class="footer-text">BookWorms</p>
+        <p class="footer-text">Projekt iz kolegija "Web Aplikacije"</p>
+        <div class="social-links">
+          <a href="https://facebook.com" target="_blank" class="social-link">Facebook</a>
+          <a href="https://instagram.com" target="_blank" class="social-link">Instagram</a>
+          <a href="https://twitter.com" target="_blank" class="social-link">Twitter</a>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -48,7 +61,6 @@
 import HeroComponent from '../components/HeroComponent.vue'
 import FeatureSection from '../components/FeatureSection.vue'
 import UserPost from '../components/UserPost.vue'
-
 
 import profileImage from '@/assets/slika-user.png';
 import firstFeatureImage from '@/assets/home-slika3.png';
@@ -138,7 +150,6 @@ p {
   margin-bottom: 1.5rem;
 }
 
-
 .feature-section-wrapper {
   position: relative;
   display: flex;
@@ -149,7 +160,6 @@ p {
   margin: 20px 0;
   background-color: #54a979;
 }
-
 
 .arrow-btn {
   background-color: var(--primary-green);
@@ -172,15 +182,42 @@ p {
 }
 
 .arrow-btn:hover {
-  transform: translateY(-50%) scale(1.1); 
+  transform: translateY(-50%) scale(1.1);
   background-color: #1f5e3f;
 }
 
 .arrow-left {
-  left: 180px; 
+  left: 180px;
 }
 
 .arrow-right {
   right: 180px;
+}
+
+.footer {
+  background-color: #2E8B57;
+  padding: 1rem 0; 
+  border-top: 1px solid #ddd;
+}
+
+.footer-text {
+  margin: 0;
+  color: #ddd;
+  font-size: 0.9em;
+}
+
+.social-links {
+  margin-top: 0.5rem; 
+}
+
+.social-link {
+  margin: 0 8px;
+  color: #ddd;
+  text-decoration: none;
+  font-size: 0.9em; 
+}
+
+.social-link:hover {
+  text-decoration: underline;
 }
 </style>
