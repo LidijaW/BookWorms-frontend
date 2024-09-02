@@ -75,15 +75,17 @@ export default {
   },
   methods: {
     async createBook() {
-      try {
-        await axios.post('https://bookworms-back.onrender.com/bookworms/books', this.book);
-      } catch (error) {
-        console.error('Error creating book:', error);
-      }
-    },
-    cancel() {
-      this.$router.push('/oglasi');
-    }
+  try {
+    const response = await axios.post('https://bookworms-back.onrender.com/bookworms/books', this.book);
+    console.log('Book created successfully:', response.data);
+    // Redirect or show success message
+    this.$router.push('/oglasi'); // Redirect to another page after success
+  } catch (error) {
+    console.error('Error creating book:', error.response ? error.response.data : error.message);
+    // Show error message to the user
+    alert('Došlo je do greške prilikom kreiranja knjige. Pokušajte ponovno.');
+  }
+}
   }
 };
 </script>
