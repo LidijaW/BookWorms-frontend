@@ -125,7 +125,7 @@ export default {
             };
 
             try {
-                await axios.post('http://localhost:3000/bookworms/auth/login', loginData);
+                await axios.post('https://bookworms-back.onrender.com/bookworms/auth/login', loginData);
                 alert("Login successful! Redirecting to the ads page...");
                 this.$router.push({ path: "/oglasi" });
             } catch (error) {

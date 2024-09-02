@@ -120,7 +120,7 @@ methods: {
         };
 
         try {
-            await axios.post('http://localhost:3000/bookworms/auth/register', userData); 
+            await axios.post('https://bookworms-back.onrender.com/bookworms/auth/register', userData);
             alert("Registration successful! Redirecting to login page...");
             this.$router.push({ path: "/prijava" }); 
         } catch (error) {

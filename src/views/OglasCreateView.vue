@@ -76,8 +76,7 @@ export default {
   methods: {
     async createBook() {
       try {
-        await axios.post('http://localhost:3000/bookworms/books', this.book);
-        this.$router.push('/oglasi');
+        await axios.post('https://bookworms-back.onrender.com/bookworms/books', this.book);
       } catch (error) {
         console.error('Error creating book:', error);
       }
