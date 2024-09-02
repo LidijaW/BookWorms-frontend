@@ -4,7 +4,8 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       "/bookworms": {
-        target: "http://localhost:3000/",
+        //target: "http://localhost:3000/",
+        target: 'https://bookworms-back.onrender.com',
         changeOrigin: true,
         pathRewrite: { "^/bookworms": "/bookworms" },
       },
