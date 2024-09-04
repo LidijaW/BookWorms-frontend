@@ -93,7 +93,7 @@ export default {
   computed: {
     filteredBooks() {
       if (this.searchQuery.trim() === '') {
-        return this.books; // Prikaži sve knjige ako je pretraga prazna
+        return this.books; 
       }
       const query = this.searchQuery.toLowerCase();
       return this.books.filter(book => {
@@ -141,8 +141,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ensures card takes full height of column */
-}
+  height: 100%; 
 
 .user-image {
   position: absolute;
@@ -158,7 +157,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%; /* Ensures the body takes full height of card */
+  height: 100%; 
 }
 
 .title-container {
